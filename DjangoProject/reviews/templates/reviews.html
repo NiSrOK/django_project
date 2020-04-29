@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Отзывы</title>
+</head>
+<body class="container">
+    <form method="POST" action="create/">
+        {% csrf_token %}
+        <p>
+            <label>Введите дату</label><br>
+            <input type="date" name="date" />
+        </p>
+        <p>
+            <label>Введите номер автомобиля</label><br>
+            <input type="text" name="car" />
+        </p>
+        <p>
+            <label>Введите комментарий</label><br>
+            <input type="text" name="comment" />
+        </p>
+        <p>
+            <label>Введите номер телефона</label><br>
+            <input type="number" name="number" />
+        </p>
+        <p>
+            <label>Поставьте оценку</label><br>
+            <input type="number" name="rating" />
+        </p>
+        <input type="submit" value="Сохранить" >
+    </form>
+    {% if data.count > 0 %}
+    <h2>Список отзывов</h2>
+    <table>
+        <thead><th>ID</th><th>Дата</th><th>Номер авто</th><th>Комментарий</th><th>Телефон</th><th>Оценка</th></thead>
+        {% for data in data %}
+        <tr>
+            <td>{{ data.id }}</td>
+            <td>{{ data.date }}</td>
+            <td>{{ data.car }}</td>
+            <td>{{ data.comment }}</td>
+            <td>{{ data.number }}</td>
+            <td>{{ data.rating }}</td>
+            <td><a href="edit/{{data.id}}">Изменить</a> | <a href="delete/{{data.id}}">Удалить</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
